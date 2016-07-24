@@ -1,0 +1,68 @@
+@(allItems: List[SupplyItems], formError: String)
+
+@import helper._
+
+@supplies("Main Page") {
+
+<div id="logo">
+  <img src="@routes.Assets.at("images/logo.png")">
+</div>
+
+<div id="navigation">
+  <ul class="nav">
+    <a href="@routes.Main.allStaff()"><li>Staff</li></a>
+    <a href="@routes.Main.staffSchedules()"><li>Schedules</li></a>
+    <li>Services
+      <ul class="nav">
+        <a href="@routes.Main.allServices()"><li>Services</li></a>
+        <a href="@routes.Main.serviceSchedules()"><li>Schedules</li></a>
+      </ul>
+    </li>
+    <a href="@routes.Main.supplies()"><li>Supplies</li></a>
+    <a href="@routes.Main.reports()"><li>Reports</li></a>
+  </ul>
+</div> 
+
+@form(routes.Main.orderItem()) {
+
+<section class="container">
+    <div class="login">
+      <h1>Order an Item</h1>
+      <p style="text-align: left;"> Items:
+         <select name="id">
+          @for(item <- allItems) {
+            <option value=@item.id>@item.name</option>
+          }
+         </select>
+      </p>
+      <p><input type="text" name="quantity" value="" placeholder="Quantity to order"></p>
+      <p class="submit"><input type="submit" value="Submit"></p>
+      <p id="error">@formError</p>
+    </div>
+</section>
+}
+
+@if(!allItems.isEmpty) {
+  <table class="flat-table" style="margin-left: 19%;">
+    <tbody>
+      <tr>
+        <th>Item</th>
+        <th>Sub-category</th>
+        <th>Category</th>
+        <th>Available Qty</th>
+        <th>Capacity</th>
+      </tr>
+      @for(item <- allItems) {
+        <tr>
+          <td>@item.name</td>
+          <td>@item.getSubCat</td>
+          <td>@item.getCat</td>
+          <td>@item.quantity</td>
+          <td>@item.capacity</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}
+
+}

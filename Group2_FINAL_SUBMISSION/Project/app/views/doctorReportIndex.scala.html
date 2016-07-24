@@ -1,0 +1,39 @@
+@(allInterns: List[Doctors], msg: String)
+
+@import helper._
+
+@doctorReport("Main Page") {
+
+<div id="logo">
+  <img src="@routes.Assets.at("images/logo.png")">
+</div>
+
+<div id="navigation">
+  <ul class="nav">
+    <a href="@routes.Main.allPatients()"><li>Patients</li></a>
+    <a href="@routes.Main.seeJuniorDr()"><li>Interns/Residents</li></a>
+    <a href="@routes.Main.doctorSchedule()"><li>Schedules</li></a>
+    <a href="@routes.Main.doctorReports()"><li>Reports</li></a>
+  </ul>
+</div> 
+
+@if(!allInterns.isEmpty) {
+  <table class="flat-table" style="margin-left: 30%;">
+    <tbody>
+      <tr>
+        <th>Intern Employee ID</th>
+        <th>Name</th>
+        <th>Surgeries Assisted</th>
+      </tr>
+      @for(intern <- allInterns) {
+        <tr>
+          <td>@intern.employeeId</td>
+          <td>@intern.getName</td>
+          <td>@intern.surgeryAssistance</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}
+
+}

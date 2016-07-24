@@ -1,0 +1,49 @@
+@(juniors: List[Doctors], msg: String, seniorId: Int)
+
+@import helper._
+
+@juniorDr("Main Page") {
+
+<div id="logo">
+  <img src="@routes.Assets.at("images/logo.png")">
+</div>
+
+<div id="navigation">
+  <ul class="nav">
+    <a href="@routes.Main.allPatients()"><li>Patients</li></a>
+    <a href="@routes.Main.seeJuniorDr()"><li>Interns/Residents</li></a>
+    <a href="@routes.Main.doctorSchedule()"><li>Schedules</li></a>
+    <a href="@routes.Main.doctorReports()"><li>Reports</li></a>
+  </ul>
+</div> 
+
+<div id="confirmation">@msg</div>
+
+@if(!juniors.isEmpty) {
+  <table class="flat-table">
+    <tbody>
+      <tr>
+        <th>Name</th>
+        <th>Junior Level</th>
+        <th>Assigned to</th>
+        <th>Assign to me</th>
+      </tr>
+      @for(junior <- juniors) {
+        <tr>
+          <td>@junior.getName</td>
+          <td>@junior.getJuniorTitle</td>
+          <td>@junior.getJuniorSenior</td>
+          @if(junior.sameSenior(seniorId) == 0) {
+          @form(routes.Main.modifyJunior(junior.employeeId)) {
+          <td><input id="modify" type="submit" value="&#x270E Assign to Me"></td>
+  	    }
+       }
+          @if(junior.sameSenior(seniorId) == 1) {
+          <td>&nbsp</td>
+       }
+  	  }
+    </tbody>
+  </table>
+}
+
+}

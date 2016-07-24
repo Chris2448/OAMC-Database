@@ -1,0 +1,36 @@
+@(allServiceSchedules: List[ServiceSchedules], formError: String , allRooms: List[ServiceRooms], allPatients: List[Patients])
+
+@import helper._
+
+@patientInfo("Main Page") {
+
+<div id="logo">
+  <img src="@routes.Assets.at("images/logo.png")">
+</div>
+
+@if(!allServiceSchedules.isEmpty) {
+  <table class="flat-table" style="margin-left: 17%;">
+    <tbody>
+      <tr>
+        <th>Room</th>
+        <th>Service</th>
+        <th>Patient</th>
+        <th>Date</th>
+        <th>Start</th>
+        <th>End</th>
+      </tr>
+      @for(serviceSchedule <- allServiceSchedules) {
+        <tr>
+          <td>@serviceSchedule.getRoomNumber</td>
+          <td>@serviceSchedule.getServiceName</td>
+          <td>@serviceSchedule.getPatientName</td>
+          <td>@serviceSchedule.getDate</td>
+          <td>@serviceSchedule.getStart</td>
+          <td>@serviceSchedule.getEnd</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}
+
+}

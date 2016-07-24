@@ -1,0 +1,57 @@
+@(allShifts: List[Shifts], allServiceSchedules: List[ServiceSchedules], salary: String, msg: String)
+
+@import helper._
+
+@ri("Main Page") {
+
+<div id="logo">
+  <img src="@routes.Assets.at("images/logo.png")">
+</div>
+
+<h3>Your Salary: @salary/year</h3>
+
+@if(!allShifts.isEmpty) {
+  <h2 id="shiftTitle">Your Shifts</h2>
+  <table class="flat-table" style="margin-left: 40%; margin-top: 0%;">
+    <tbody>
+      <tr>
+        <th>Days</th>
+        <th>Time</th>
+      </tr>
+      @for(shift <- allShifts) {
+        <tr>
+          <td>@shift.detDays</td>
+          <td>@shift.getTime</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}
+
+@if(!allServiceSchedules.isEmpty) {
+  <h2 id="shiftTitle">Your Service Appointments</h2>
+  <table class="flat-table" style="margin-left: 25%; margin-top: 0%;">
+    <tbody>
+      <tr>
+        <th>Room</th>
+        <th>Service</th>
+        <th>Patient</th>
+        <th>Date</th>
+        <th>Start</th>
+        <th>End</th>
+      </tr>
+      @for(serviceSchedule <- allServiceSchedules) {
+        <tr>
+          <td>@serviceSchedule.getRoomNumber</td>
+          <td>@serviceSchedule.getServiceName</td>
+          <td>@serviceSchedule.getPatientName</td>
+          <td>@serviceSchedule.getDate</td>
+          <td>@serviceSchedule.getStart</td>
+          <td>@serviceSchedule.getEnd</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}
+
+}

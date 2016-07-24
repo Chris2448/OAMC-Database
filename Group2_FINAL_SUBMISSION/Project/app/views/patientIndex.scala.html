@@ -1,0 +1,88 @@
+@(modifiablePatients: List[Patients], remainingPatients: List[Patients], patientInfo: Patients, formError: String)
+
+@import helper._
+
+@patient("Main Page") {
+
+<div id="logo">
+  <img src="@routes.Assets.at("images/logo.png")">
+</div>
+
+<div id="navigation">
+  <ul class="nav">
+    <a href="@routes.Main.allPatients()"><li>Patients</li></a>
+    <a href="@routes.Main.seeJuniorDr()"><li>Interns/Residents</li></a>
+    <a href="@routes.Main.doctorSchedule()"><li>Schedules</li></a>
+    <a href="@routes.Main.doctorReports()"><li>Reports</li></a>
+  </ul>
+</div> 
+
+@if(patientInfo.id != -1) {
+	@form(routes.Main.submitPatientChanges(patientInfo.id)) {
+
+	<section class="container">
+	    <div class="login">
+	      <h1>Modify Patient</h1>
+		  <p>First Name: <input type="text" name="firstName" value="@patientInfo.firstName"></p>
+	      <p>Last Name: <input type="text" name="lastName" value="@patientInfo.lastName"></p>
+	      <p>Birth date: <input type="text" name="birthDate" value="@patientInfo.getBirthday"></p>
+	      <p>Phone Number: <input type="text" name="phoneNumber" value="@patientInfo.phoneNumber"></p>
+	      <p>Address: <input type="text" name="address" value="@patientInfo.getAddress"></p>
+
+		  <p>Valid Medicare Card: <input type="radio" name="validMedicareCard" value="0" @patientInfo.getInvalidMedicare /> No
+		   			&nbsp;
+					  <input type="radio" name="validMedicareCard" value="1" @patientInfo.getValidMedicare /> Yes
+		  </p>
+
+		  <p>Valid Hospital Card: <input type="radio" name="validHospitalCard" value="0" @patientInfo.getInvalidHospital /> No
+		   			&nbsp;
+					  <input type="radio" name="validHospitalCard" value="1" @patientInfo.getValidHospital /> Yes
+		  </p>
+
+	      <p class="submit"><input type="submit" value="Submit"></p>
+	      <p id="error">@formError</p>
+	    </div>
+	</section>
+	}
+}
+
+@if(!modifiablePatients.isEmpty || !remainingPatients.isEmpty) {
+  <table class="flat-table">
+    <tbody>
+      <tr>
+        <th>Name</th>
+        <th>Birthday</th>
+        <th>Phone Number</th>
+        <th>Address</th>
+        <th>Valid Medicare Card</th>
+        <th>Valid Hospital Card</th>
+        <th>Modify</th>
+      </tr>
+      @for(patient <- modifiablePatients) {
+        <tr>
+          <td>@patient.getName</td>
+          <td>@patient.getBirthday</td>
+          <td>@patient.phoneNumber</td>
+          <td>@patient.address</td>
+          <td>@patient.getmCard</td>
+          <td>@patient.gethCard</td>
+          @form(routes.Main.modifyPatient(patient.id)) {
+          <td><input id="modify" type="submit" value="&#x270E Modify"></td>
+  	    }
+  	  }
+      @for(patient <- remainingPatients) {
+        <tr>
+          <td>@patient.getName</td>
+          <td>@patient.getBirthday</td>
+          <td>@patient.phoneNumber</td>
+          <td>@patient.address</td>
+          <td>@patient.getmCard</td>
+          <td>@patient.gethCard</td>
+          <td>&nbsp</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}
+
+}

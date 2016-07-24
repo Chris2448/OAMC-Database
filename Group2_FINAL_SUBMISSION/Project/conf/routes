@@ -1,0 +1,49 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /                           controllers.Application.index()
+
+# Login
+GET		/login						controllers.Application.loginIndex()
+POST	/login						controllers.Application.login()
+
+# Admin/Director
+GET		/main/						controllers.Main.index(id: Int)
+GET		/main/staff/				controllers.Main.allStaff()
+GET		/main/staffSchedule/		controllers.Main.staffSchedules()
+GET		/main/allServices/			controllers.Main.allServices()
+GET		/main/serviceSchedules/		controllers.Main.serviceSchedules()
+GET		/main/supplies/				controllers.Main.supplies()
+GET		/main/reports/				controllers.Main.reports()
+
+POST	/main/allServices/new		controllers.Main.addService()
+POST	/main/allServices/:id/delete	controllers.Main.deleteService(id: Int)
+
+POST	/main/serviceSchedules/newSurgery	controllers.Main.addSurgerySchedule()
+
+POST	/main/supplies/orderItem	controllers.Main.orderItem()
+
+POST	/main/reports/getReport		controllers.Main.getReport()
+
+# Doctors
+GET		/doctor/patients			controllers.Main.allPatients()
+GET		/doctor/seeJuniors			controllers.Main.seeJuniorDr()
+GET		/doctor/schedule			controllers.Main.doctorSchedule()
+GET		/doctor/report				controllers.Main.doctorReports()
+
+POST	/doctors/patients/modify	controllers.Main.modifyPatient(id: Int)
+POST	/doctors/patients/submit	controllers.Main.submitPatientChanges(id: Int)
+
+POST	/doctors/seeJuniors/assign	controllers.Main.modifyJunior(id: Int)
+
+POST	/doctors/schedule/cancel	controllers.Main.cancelAppointment(id: Int)
+
+GET		/patientSection/			controllers.Main.patientSection()
+
+# Shift Nurse
+GET 	/superNurse/schedule		controllers.Main.nurseSchedule()
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)

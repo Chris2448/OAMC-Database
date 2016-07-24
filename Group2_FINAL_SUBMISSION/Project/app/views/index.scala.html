@@ -1,0 +1,26 @@
+@(loginForm: Form[EmployeeIds], wrongCredentials: String)
+
+@import helper._
+
+@login("OMAC Login Page") {
+ 
+@form(routes.Application.login()) {
+
+  <center><img src="@routes.Assets.at("images/logo.png")"></center>
+
+  <section class="container">
+    <div class="login">
+      <h1>OAMC Login Page</h1>
+      <p><input type="text" name="employeeId" value="" placeholder="Employee ID"></p>
+      <p><input type="password" name="password" value="" placeholder="Password"></p>
+      <p class="submit"><input type="submit" value="Login"></p>
+      <p id="error">@wrongCredentials</p>
+    </div>
+  </section>
+
+  <div id="patientInfo">
+    <a href="@routes.Main.patientSection()">Click Here</a> if you are a patient.
+  </div>
+}
+    
+}

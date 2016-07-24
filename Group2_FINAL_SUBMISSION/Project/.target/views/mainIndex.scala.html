@@ -1,0 +1,28 @@
+@(salary: String, unit: String)
+
+@main("Main Page") {
+
+<div id="logo">
+  <img src="@routes.Assets.at("images/logo.png")">
+</div>
+
+<div id="navigation">
+  <ul class="nav">
+    <a href="@routes.Main.allStaff()"><li>Staff</li></a>
+    <a href="@routes.Main.staffSchedules()"><li>Schedules</li></a>
+    <li>Services
+      <ul class="nav">
+        <a href="@routes.Main.allServices()"><li>Services</li></a>
+        <a href="@routes.Main.serviceSchedules()"><li>Schedules</li></a>
+      </ul>
+    </li>
+    <a href="@routes.Main.supplies()"><li>Supplies</li></a>
+    <a href="@routes.Main.reports()"><li>Reports</li></a>
+  </ul>
+</div> 
+
+<div id="welcome">
+  Welcome to Open Access Medical Center. Your salary is @salary/@unit.</br></br>Please make your selection from the provided menu.
+</div>
+
+}

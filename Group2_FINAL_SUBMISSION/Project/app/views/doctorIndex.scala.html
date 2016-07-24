@@ -1,0 +1,42 @@
+@(allServiceSchedules: List[ServiceSchedules])
+
+@doctor("Main Page") {
+
+<div id="logo">
+  <img src="@routes.Assets.at("images/logo.png")">
+</div>
+
+<div id="navigation">
+  <ul class="nav">
+    <a href="@routes.Main.allPatients()"><li>Patients</li></a>
+    <a href="@routes.Main.seeJuniorDr()"><li>Interns/Residents</li></a>
+    <a href="@routes.Main.doctorSchedule()"><li>Schedules</li></a>
+    <a href="@routes.Main.doctorReports()"><li>Reports</li></a>
+  </ul>
+</div> 
+
+<div id="welcome">
+  Welcome to Open Access Medical Center. Please make your selection from the provided menu.
+</div>
+
+</br>
+
+@if(!allServiceSchedules.isEmpty) {
+  <h2 id="shiftTitle">Your Services Fees</h2>
+  <table class="flat-table" style="margin-left: 39%; margin-top: 0%;">
+    <tbody>
+      <tr>
+        <th>Service</th>
+        <th>Fee</th>
+      </tr>
+      @for(serviceSchedule <- allServiceSchedules) {
+        <tr>
+          <td>@serviceSchedule.getServiceName</td>
+          <td>@serviceSchedule.getFee</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}
+
+}

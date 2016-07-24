@@ -1,0 +1,85 @@
+@(allStaff: List[Staff], allDoctors: List[Doctors], allShifts: List[Shifts])
+
+@staff("Main Page") {
+
+<div id="logo">
+  <img src="@routes.Assets.at("images/logo.png")">
+</div>
+
+<div id="navigation">
+  <ul class="nav">
+    <a href="@routes.Main.allStaff()"><li>Staff</li></a>
+    <a href="@routes.Main.staffSchedules()"><li>Schedules</li></a>
+    <li>Services
+      <ul class="nav">
+        <a href="@routes.Main.allServices()"><li>Services</li></a>
+        <a href="@routes.Main.serviceSchedules()"><li>Schedules</li></a>
+      </ul>
+    </li>
+    <a href="@routes.Main.supplies()"><li>Supplies</li></a>
+    <a href="@routes.Main.reports()"><li>Reports</li></a>
+  </ul>
+</div> 
+
+@if(!allStaff.isEmpty || !allDoctors.isEmpty) {
+  <table class="flat-table">
+    <tbody>
+      <tr>
+        <th>Employee ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Title</th>
+        <th>Unit</th>
+        <th>Hire Date</th>
+        <th>Salary</th>
+      </tr>
+      @for(staff <- allStaff) {
+        <tr>
+          <td>@staff.getEmployeeId</td>
+          <td>@staff.firstName</td>
+          <td>@staff.lastName</td>
+          <td>@staff.getTitle</td>
+          <td>@staff.getUnit</td>
+          <td>@staff.getHireDate</td>
+          <td>@staff.getSalary</td>
+        </tr>
+      }
+      @for(doctor <- allDoctors) {
+        <tr>
+          <td>@doctor.getEmployeeId</td>
+          <td>@doctor.firstName</td>
+          <td>@doctor.lastName</td>
+          <td>@doctor.getTitle</td>
+          <td>@doctor.getUnit</td>
+          <td>@doctor.getHireDate</td>
+          <td>@doctor.getSalary</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}
+
+@if(!allShifts.isEmpty) {
+  <table class="flat-table" style="margin-left: 15%;">
+    <tbody>
+      <tr>
+        <th>Employee ID</th>
+        <th>Name</th>
+        <th>Title</th>
+        <th>Days</th>
+        <th>Time</th>
+      </tr>
+      @for(shift <- allShifts) {
+        <tr>
+          <td>@shift.getEmployeeId</td>
+          <td>@shift.getName</td>
+          <td>@shift.getTitle</td>
+          <td>@shift.detDays</td>
+          <td>@shift.getTime</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}
+
+}

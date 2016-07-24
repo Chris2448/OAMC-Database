@@ -1,0 +1,72 @@
+@(months: List[String], years: List[Integer], formError: String, ssa: List[StaffServiceAssignments])
+
+@import helper._
+
+@reports("Main Page") {
+
+<div id="logo">
+  <img src="@routes.Assets.at("images/logo.png")">
+</div>
+
+<div id="navigation">
+  <ul class="nav">
+    <a href="@routes.Main.allStaff()"><li>Staff</li></a>
+    <a href="@routes.Main.staffSchedules()"><li>Schedules</li></a>
+    <li>Services
+      <ul class="nav">
+        <a href="@routes.Main.allServices()"><li>Services</li></a>
+        <a href="@routes.Main.serviceSchedules()"><li>Schedules</li></a>
+      </ul>
+    </li>
+    <a href="@routes.Main.supplies()"><li>Supplies</li></a>
+    <a href="@routes.Main.reports()"><li>Reports</li></a>
+  </ul>
+</div> 
+
+@form(routes.Main.getReport()) {
+
+<section class="container">
+    <div class="login">
+      <h1>Time of Service Schedules</h1>
+      <p style="text-align: left;"> Year:
+         <select name="year">
+          @for(year <- years) {
+            <option value=@year>@year</option>
+          }
+         </select>
+      </p>
+      <p style="text-align: left;"> Month:
+         <select name="month">
+          @for(month <- months) {
+            <option value=@month>@month</option>
+          }
+         </select>
+      </p>
+      <p class="submit"><input type="submit" value="Submit"></p>
+      <p id="error">@formError</p>
+    </div>
+</section>
+}
+
+@if(!ssa.isEmpty) {
+  <table class="flat-table" style="margin-left: 26%;">
+    <tbody>
+      <tr>
+        <th>Service</th>
+        <th>Unit</th>
+        <th>Doctors</th>
+        <th>Date</th>
+      </tr>
+      @for(s <- ssa) {
+        <tr>
+          <td>@s.getServiceName</td>
+          <td>@s.getUnit</td>
+          <td>@s.getDoctorNames</td>
+          <td>@s.getDate</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}
+
+}
